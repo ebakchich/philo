@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:51:40 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/15 20:57:31 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:17:19 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <pthread.h>
 
 typedef struct t_infop
 {
@@ -23,8 +24,12 @@ typedef struct t_infop
 
 typedef struct t_info
 {
+	int test;
+	int test2;
 	int		nph;
-	t_infop	*ph;
+	t_inf	*ph;
+	pthread_t	*pt;
+	pthread_mutex_t	mutex;
 }   t_list;
 
 int ft_error(int ac, char **av);

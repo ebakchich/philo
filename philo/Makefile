@@ -6,7 +6,7 @@
 #    By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/14 19:45:40 by ebakchic          #+#    #+#              #
-#    Updated: 2023/01/15 20:30:35 by ebakchic         ###   ########.fr        #
+#    Updated: 2023/01/16 16:38:39 by ebakchic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ GFLAGS  = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): ${OBJS}
-	@$(CC) -o ${NAME} ${OBJS}
+	@$(CC) -o ${NAME} ${OBJS} -pthread
 
 clean:
 	@${RM} ${OBJS}
