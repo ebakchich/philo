@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:49:28 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/16 18:19:06 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:35:57 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(int ac, char **av)
 	{
 		printf("Error\n");
 		return (0);
-	} 
+	}
 	ft_creat_philo(av);
 	return (0);
 }
