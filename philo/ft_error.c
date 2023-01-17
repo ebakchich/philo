@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:45:38 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/16 17:36:44 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:38:15 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_error(int ac, char **av)
 		while (av[i][j])
 		{
 			if (av[i][j] < 48 || av[i][j] > 57)
-				return (2);
+				return (1);
 			j++;
 		}
 		i++;
