@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:49:28 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/19 00:13:47 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/19 22:46:41 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,31 @@ void	*ft_routing(void *a)
 	while (1)
 	{
 		pthread_mutex_lock(&ph->forks[ph->index]);
-		pthread_mutex_lock(&ph->mutex);
+		//pthread_mutex_lock(&ph->mutex);
 		printf("%d is taking a left fork\n", ph->index + 1);
-		pthread_mutex_unlock(&ph->mutex);
+		//pthread_mutex_unlock(&ph->mutex);
 		pthread_mutex_lock(&ph->forks[(ph->index + 1) % ph->nph]);
-		pthread_mutex_lock(&ph->mutex);
+		//pthread_mutex_lock(&ph->mutex);
 		printf("%d is taking a right fork\n", ph->index + 1);
-		pthread_mutex_unlock(&ph->mutex);
 		printf("%d is eating\n", ph->index + 1);
-		pthread_mutex_lock(&ph->mutex);
-		pthread_mutex_unlock(&ph->mutex);
-		usleep(10000);
+		//pthread_mutex_unlock(&ph->mutex);
+		// pthread_mutex_lock(&ph->mutex);
+		// ph->l_meal = ft_get_time();
+		// while (ft_get_time() - ph->l_meal <= ph->t_eat)
+		// {
+			usleep(ph->t_eat * 1000);
+		// 	printf("#########################t%ld\n", ft_get_time() - ph->l_meal);
+		// }
+		// pthread_mutex_unlock(&ph->mutex);
+		//printf("#########################t%ld\n", ph->l_meal);
 		pthread_mutex_unlock(&ph->forks[ph->index]);
 		pthread_mutex_unlock(&ph->forks[(ph->index + 1) % ph->nph]);
 		usleep(100);
+		//printf("%d is sleeping\n", ph->index + 1);
+		// ph->s_sleep = ft_get_time();
+		// while (ft_get_time() - ph->s_sleep <= ph->t_sleep)
+		// 	usleep(10000);
+		// printf("%d is thinking\n", ph->index + 1);
 	}
 	return (0);
 }
@@ -58,6 +69,7 @@ void	ft_fill(t_list *s, char **av)
 	i = 0;
 	while (i < index)
 	{
+		s->ph[i].t_eat = ft_atoi(av[3]);
 		s->ph[i].forks = forks;
 		s->ph[i].index = i;
 		s->ph[i].nph = index;
@@ -81,12 +93,10 @@ int	ft_creat_philo(char **av)
 		usleep(300);
 		i++;
 	}
-	i = 0;
-	while (i < s.ph[0].nph)
+	while (1)
 	{
-		if (pthread_join(s.pt[i], NULL) != 0)
-			return (1);
-		i++;
+		
+		//break ;
 	}
 	free(s.pt);
 	free(s.ph);

@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:51:40 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/18 23:37:31 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/19 21:49:55 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 typedef struct t_infop
 {
+	int				s_sleep;
+	int				t_sleep;
+	int				t_eat;
+	long int				l_meal;
 	int				nph;
 	int				index;
 	pthread_mutex_t	mutex;
@@ -35,5 +40,6 @@ typedef struct t_info
 
 int	ft_error(int ac, char **av);
 int	ft_atoi(const char *str);
+long int	ft_get_time(void);
 
 #endif
