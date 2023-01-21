@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:51:40 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/21 03:17:04 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:19:30 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 typedef struct t_infop
 {
-	int				i;
 	int				ac;
 	int				m_eat;
 	long int		start;
@@ -32,19 +31,12 @@ typedef struct t_infop
 	long int		l_meal;
 	int				nph;
 	int				index;
-	pthread_mutex_t	mutex;
 	pthread_mutex_t	*forks;
-	struct t_infop			*phh;
 }	t_inf;
 
-typedef struct t_info
-{
-	t_inf		*ph;
-}	t_list;
-
-int	ft_error(int ac, char **av);
-int	ft_atoi(const char *str);
-void	*ft_routing(void *a);
+int			ft_error(int ac, char **av);
+int			ft_atoi(const char *str);
+void		*ft_routing(void *a);
 long int	ft_get_time(void);
 
 #endif
