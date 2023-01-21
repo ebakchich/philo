@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:17:43 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/21 03:17:52 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/21 03:48:00 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_count_eat(t_inf *ph)
 		count = count + ph[i].m_eat;
 		i++;
 	}
+	//printf("################%d\n", count);
 	return (count);
 }
 
@@ -47,13 +48,14 @@ void	*ft_routing(void *a)
 		ft_print_msg(ph, "has taken left fork");
 		ft_print_msg(ph, "is eating");
 		ph->m_eat++;
-		pthread_mutex_unlock(&ph->mutex);
 		ph->l_meal = ft_get_time();
 		while (ft_get_time() - ph->l_meal < ph->t_eat)
+		{
+			if (ph->ac == 6)
+				if (ph->nph * ph->ac == ft_count_eat(ph->phh))
+					return (0);
 			usleep(10);
-		if (ph->ac == 6)
-			if (ph->nph * ph->ac == ft_count_eat(ph->phh))
-				break ;
+		}
 		pthread_mutex_unlock(&ph->forks[ph->index]);
 		pthread_mutex_unlock(&ph->forks[(ph->index + 1) % ph->nph]);
 		usleep(ph->t_sleep * 1000);
@@ -61,6 +63,6 @@ void	*ft_routing(void *a)
 		//ph->s_sleep = ft_get_time();
 		ft_print_msg(ph, "is thinking");
 	}
-	ft_print_msg(ph, "#############");
+	//ft_print_msg(ph, "#############");
 	return (0);
 }
