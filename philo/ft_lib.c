@@ -6,11 +6,21 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 20:26:43 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/16 17:28:06 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/22 20:54:19 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 int	ft_atoi(const char *str)
 {

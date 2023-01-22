@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:49:28 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/21 18:17:31 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/22 20:52:24 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,10 @@ void	ft_fill(t_inf *ph, char **av, int ac)
 
 	i = 0;
 	index = ft_atoi(av[1]);
-	forks = malloc(index * sizeof(pthread_mutex_t));
+	forks = malloc((index + 1) * sizeof(pthread_mutex_t));
 	while (i < index)
 	{
 		pthread_mutex_init(&forks[i], NULL);
-		i++;
-	}
-	i = 0;
-	while (i < index)
-	{
 		ph[i].t_eat = ft_atoi(av[3]);
 		ph[i].t_sleep = ft_atoi(av[4]);
 		ph[i].forks = forks;
@@ -37,8 +32,27 @@ void	ft_fill(t_inf *ph, char **av, int ac)
 		ph[i].ac = ac;
 		if (ph[i].ac == 6)
 			ph[i].m_eat = ft_atoi(av[5]);
+		ph[i].t_die = ft_atoi(av[2]);
 		i++;
 	}
+	pthread_mutex_init(&forks[i], NULL);
+}
+
+int	ft_check_die(t_inf *ph)
+{
+	int	i;
+
+	i = 0;
+	while (i < ph[i].nph)
+	{
+		if (ft_get_time() - ph[i].l_meal >= ph[i].t_die)
+		{
+			ft_print_msg(ph, "died");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 int	ft_creat_philo(int ac, char **av)
@@ -54,6 +68,7 @@ int	ft_creat_philo(int ac, char **av)
 	while (i < ph[0].nph)
 	{
 		ph[i].start = ft_get_time();
+		ph[i].l_meal = ph[i].start;
 		if (pthread_create(&pt[i], NULL, &ft_routing, &ph[i]) != 0)
 			return (1);
 		usleep(100);
@@ -61,6 +76,8 @@ int	ft_creat_philo(int ac, char **av)
 	}
 	while (1)
 	{
+		if (ft_check_die(ph))
+			break ;
 	}
 	free(pt);
 	free(ph);

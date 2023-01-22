@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:51:40 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/21 18:19:30 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/22 20:55:01 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct t_infop
 	int				ac;
 	int				m_eat;
 	long int		start;
+	long int		t_die;
 	int				s_sleep;
 	int				t_sleep;
 	int				t_eat;
@@ -38,5 +39,7 @@ int			ft_error(int ac, char **av);
 int			ft_atoi(const char *str);
 void		*ft_routing(void *a);
 long int	ft_get_time(void);
+size_t		ft_strlen(const char *s);
+void		ft_print_msg(t_inf *ph, char *str);
 
 #endif
