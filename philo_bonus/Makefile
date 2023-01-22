@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/14 19:45:40 by ebakchic          #+#    #+#              #
-#    Updated: 2023/01/22 23:09:49 by ebakchic         ###   ########.fr        #
+#    Created: 2023/01/22 21:21:14 by ebakchic          #+#    #+#              #
+#    Updated: 2023/01/22 21:55:48 by ebakchic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS    = main.c ft_error.c ft_lib.c ft_routing.c ft_get_time.c
+SRCS    = main_bonus.c
 NAME    = philo
 OBJS 	= ${SRCS:.c=.o}
 CC		= cc
@@ -19,7 +19,7 @@ GFLAGS  = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): ${OBJS}
-	@$(CC) -o ${NAME} ${OBJS} -pthread
+	@$(CC) -o ${NAME} ${OBJS}
 
 clean:
 	@${RM} ${OBJS}

@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:49:28 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/22 20:52:24 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/22 23:30:25 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,16 @@ void	ft_fill(t_inf *ph, char **av, int ac)
 int	ft_check_die(t_inf *ph)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (i < ph[i].nph)
 	{
+		if (ph[i].ac == 6 && ph[i].m_eat == 0)
+			j++;
+		if (j == ph[i].nph)
+			return (1);
 		if (ft_get_time() - ph[i].l_meal >= ph[i].t_die)
 		{
 			ft_print_msg(ph, "died");
