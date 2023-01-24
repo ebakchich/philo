@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:49:28 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/22 23:30:25 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/24 02:18:20 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_check_die(t_inf *ph)
 	return (0);
 }
 
-int	ft_creat_philo(int ac, char **av)
+void	ft_creat_philo(int ac, char **av)
 {
 	t_inf		*ph;
 	pthread_t	*pt;
@@ -71,13 +71,14 @@ int	ft_creat_philo(int ac, char **av)
 	ft_fill(ph, av, ac);
 	pt = malloc(ph[0].nph * sizeof(pthread_t));
 	i = 0;
+	ph[0].start = ft_get_time();
 	while (i < ph[0].nph)
 	{
-		ph[i].start = ft_get_time();
-		ph[i].l_meal = ph[i].start;
+		ph[i].start = ph[0].start;
+		ph[i].l_meal = ph[0].start;
 		if (pthread_create(&pt[i], NULL, &ft_routing, &ph[i]) != 0)
-			return (1);
-		usleep(100);
+			return ;
+		usleep(50);
 		i++;
 	}
 	while (1)
@@ -87,18 +88,20 @@ int	ft_creat_philo(int ac, char **av)
 	}
 	free(pt);
 	free(ph);
-	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	int	i;
-
 	if (ft_error(ac, av))
 	{
 		printf("Error\n");
 		return (0);
 	}
+	if (ac == 6)
+		if (ft_atoi(av[5]) == 0)
+			return (0);
+	if (ft_atoi(av[1]) == 0)
+		return (0);
 	ft_creat_philo(ac, av);
 	return (0);
 }

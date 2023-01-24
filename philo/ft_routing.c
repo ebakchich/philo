@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:17:43 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/22 23:35:01 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/24 01:24:06 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*ft_routing(void *a)
 		ph->m_eat--;
 		ph->l_meal = ft_get_time();
 		while (ft_get_time() - ph->l_meal < ph->t_eat)
-			usleep(10);
+			usleep(100);
 		pthread_mutex_unlock(&ph->forks[ph->index]);
 		pthread_mutex_unlock(&ph->forks[(ph->index + 1) % ph->nph]);
 		if (ph->ac == 6 && ph->m_eat == 0)
@@ -50,7 +50,7 @@ void	*ft_routing(void *a)
 		ft_print_msg(ph, "is sleeping");
 		ph->s_sleep = ft_get_time();
 		while (ft_get_time() - ph->s_sleep < ph->t_sleep)
-			usleep(10);
+			usleep(100);
 		ft_print_msg(ph, "is thinking");
 	}
 	return (0);

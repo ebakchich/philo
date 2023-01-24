@@ -6,7 +6,7 @@
 #    By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/14 19:45:40 by ebakchic          #+#    #+#              #
-#    Updated: 2023/01/22 23:09:49 by ebakchic         ###   ########.fr        #
+#    Updated: 2023/01/23 23:48:42 by ebakchic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SRCS    = main.c ft_error.c ft_lib.c ft_routing.c ft_get_time.c
 NAME    = philo
 OBJS 	= ${SRCS:.c=.o}
 CC		= cc
-GFLAGS  = -Wall -Wextra -Werror 
+GFLAGS  = -Wall -Wextra -Werror fsanitize=thread -g
 
 all: $(NAME)
 
