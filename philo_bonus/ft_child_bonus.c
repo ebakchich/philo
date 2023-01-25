@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_routing.c                                       :+:      :+:    :+:   */
+/*   ft_child_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 11:17:43 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/24 20:31:08 by ebakchic         ###   ########.fr       */
+/*   Created: 2023/01/23 05:03:07 by ebakchic          #+#    #+#             */
+/*   Updated: 2023/01/25 03:23:41 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 void	ft_print_msg(t_inf *ph, char *str)
 {
 	if (ft_strlen(str) == 4)
 	{
-		pthread_mutex_lock(&ph->forks[ph->nph]);
+		sem_wait(ph->sem->lock_print);
 		printf("%ld %d %s\n", (ft_get_time() - ph->start), ph->index + 1, str);
 	}
 	else
 	{
-		pthread_mutex_lock(&ph->forks[ph->nph]);
+		sem_wait(ph->sem->lock_print);
 		printf("%ld %d %s\n", (ft_get_time() - ph->start), ph->index + 1, str);
-		pthread_mutex_unlock(&ph->forks[ph->nph]);
+		sem_post(ph->sem->lock_print);
 	}
 }
 
@@ -34,19 +34,19 @@ void	*ft_routing(void *a)
 	ph = (t_inf *)a;
 	while (1)
 	{
-		pthread_mutex_lock(&ph->forks[ph->index]);
+		sem_wait(ph->sem->forks);
 		ft_print_msg(ph, "has taken left fork");
-		pthread_mutex_lock(&ph->forks[(ph->index + 1) % ph->nph]);
+		sem_wait(ph->sem->forks);
 		ft_print_msg(ph, "has taken right fork");
 		ft_print_msg(ph, "is eating");
 		ph->m_eat--;
 		ph->l_meal = ft_get_time();
 		while (ft_get_time() - ph->l_meal < ph->t_eat)
 			usleep(100);
-		pthread_mutex_unlock(&ph->forks[ph->index]);
-		pthread_mutex_unlock(&ph->forks[(ph->index + 1) % ph->nph]);
+		sem_post(ph->sem->forks);
+		sem_post(ph->sem->forks);
 		if (ph->ac == 6 && ph->m_eat == 0)
-			return (0);
+			break ;
 		ft_print_msg(ph, "is sleeping");
 		ph->s_sleep = ft_get_time();
 		while (ft_get_time() - ph->s_sleep < ph->t_sleep)
@@ -54,4 +54,25 @@ void	*ft_routing(void *a)
 		ft_print_msg(ph, "is thinking");
 	}
 	return (0);
+}
+
+void	ft_child(t_inf *ph)
+{
+	pthread_t	pth;
+
+	pthread_create(&pth, NULL, &ft_routing, ph);
+	while (1)
+	{
+		if (ph->ac == 6 && ph->m_eat == 0)
+		{
+			sem_post(ph->sem->forks);
+			sem_post(ph->sem->forks);
+			exit (EXIT_SUCCESS);
+		}
+		if (ft_get_time() - ph->l_meal >= ph->t_die)
+		{
+			ft_print_msg(ph, "died");
+			exit (EXIT_FAILURE);
+		}
+	}
 }
