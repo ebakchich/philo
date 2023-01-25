@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 21:20:32 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/25 03:22:48 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:53:38 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void		ft_child(t_inf *ph);
 long int	ft_get_time(void);
 size_t		ft_strlen(const char *s);
 int			ft_atoi(const char *str);
+void		ft_free_all(t_inf *ph, t_sem *sema, int *frk);
 
 #endif

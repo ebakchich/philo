@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 21:20:57 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/25 05:17:06 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:50:30 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,6 @@ void	ft_check_child(t_inf *ph, int *frk, int status)
 	}
 }
 
-void	ft_free_all(t_inf *ph, int *frk)
-{
-}
-
 void	ft_creat_philo(int ac, char **av)
 {
 	t_inf		*ph;
@@ -104,7 +100,7 @@ void	ft_creat_philo(int ac, char **av)
 		i++;
 	}
 	ft_check_child(ph, frk, status);
-	ft_free_all(ph, frk);
+	ft_free_all(ph, ph[0].sem, frk);
 }
 
 int	main(int ac, char **av)
