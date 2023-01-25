@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:49:28 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/24 20:32:34 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:09:59 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ void	ft_creat_philo(int ac, char **av)
 		if (ft_check_die(ph))
 			break ;
 	}
-	free(pt);
-	free(ph);
+	ft_free_all(ph, pt);
 }
 
 int	main(int ac, char **av)
@@ -103,5 +102,6 @@ int	main(int ac, char **av)
 	if (ft_atoi(av[1]) == 0)
 		return (0);
 	ft_creat_philo(ac, av);
+	system("leaks philo");
 	return (0);
 }

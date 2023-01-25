@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:51:40 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/22 23:35:15 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:10:43 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void		*ft_routing(void *a);
 long int	ft_get_time(void);
 size_t		ft_strlen(const char *s);
 void		ft_print_msg(t_inf *ph, char *str);
+void		ft_free_all(t_inf *ph, pthread_t *pt);
 
 #endif
