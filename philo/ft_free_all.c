@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 06:06:42 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/25 18:05:54 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:03:43 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_free_all(t_inf *ph, pthread_t *pt)
 	while (i <= ph[0].nph)
 	{
 		pthread_mutex_destroy(&ph[0].forks[i]);
+		pthread_detach(pt[i]);
 		i++;
 	}
 	free(ph[0].forks);

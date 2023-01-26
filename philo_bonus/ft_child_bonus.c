@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 05:03:07 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/25 03:23:41 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:14:34 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,13 @@ void	ft_child(t_inf *ph)
 		{
 			sem_post(ph->sem->forks);
 			sem_post(ph->sem->forks);
+			pthread_detach(pth);
 			exit (EXIT_SUCCESS);
 		}
 		if (ft_get_time() - ph->l_meal >= ph->t_die)
 		{
 			ft_print_msg(ph, "died");
+			pthread_detach(pth);
 			exit (EXIT_FAILURE);
 		}
 	}
