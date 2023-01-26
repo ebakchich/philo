@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 05:03:07 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/26 21:14:34 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:21:04 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	*ft_routing(void *a)
 	while (1)
 	{
 		sem_wait(ph->sem->forks);
-		ft_print_msg(ph, "has taken left fork");
+		ft_print_msg(ph, "has taken first fork");
 		sem_wait(ph->sem->forks);
-		ft_print_msg(ph, "has taken right fork");
+		ft_print_msg(ph, "has taken second fork");
 		ft_print_msg(ph, "is eating");
 		ph->m_eat--;
 		ph->l_meal = ft_get_time();
