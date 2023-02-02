@@ -6,13 +6,30 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:49:28 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/02/02 02:27:20 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:04:54 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_fill(t_inf *ph, char **av, int ac)
+int	ft_init_mutex(pthread_mutex_t *forks, int x)
+{
+	int	i;
+
+	i = 0;
+	while (i <= x)
+	{
+		if (pthread_mutex_init(&forks[i], NULL) != 0)
+		{
+			printf("Error\n");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	ft_fill(t_inf *ph, char **av, int ac)
 {
 	int				i;
 	pthread_mutex_t	*forks;
@@ -23,7 +40,6 @@ void	ft_fill(t_inf *ph, char **av, int ac)
 	forks = malloc((index + 1) * sizeof(pthread_mutex_t));
 	while (i < index)
 	{
-		pthread_mutex_init(&forks[i], NULL);
 		ph[i].t_eat = ft_atoi(av[3]);
 		ph[i].t_sleep = ft_atoi(av[4]);
 		ph[i].forks = forks;
@@ -32,10 +48,14 @@ void	ft_fill(t_inf *ph, char **av, int ac)
 		ph[i].ac = ac;
 		if (ph[i].ac == 6)
 			ph[i].m_eat = ft_atoi(av[5]);
-		ph[i].t_die = ft_atoi(av[2]);
-		i++;
+		ph[i++].t_die = ft_atoi(av[2]);
 	}
-	pthread_mutex_init(&forks[i], NULL);
+	if (ft_init_mutex(forks, index))
+	{
+		ft_free_all(ph, NULL);
+		return (1);
+	}
+	return (0);
 }
 
 int	ft_check_die(t_inf *ph)
@@ -71,7 +91,8 @@ void	ft_creat_philo(int ac, char **av)
 	int			i;
 
 	ph = malloc(ft_atoi(av[1]) * sizeof(t_inf));
-	ft_fill(ph, av, ac);
+	if (ft_fill(ph, av, ac))
+		return ;
 	pt = malloc(ph[0].nph * sizeof(pthread_t));
 	i = 0;
 	ph[0].start = ft_get_time();
