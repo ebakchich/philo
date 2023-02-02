@@ -6,18 +6,22 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 21:20:57 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/25 06:50:30 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/02/02 02:09:02 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	ft_init_sema(t_sem *sema, int i)
+void	ft_init_sema(t_sem *sema, int i, t_inf *ph)
 {
 	sem_unlink("forks");
 	sem_unlink("lock_print");
-	sema->forks = sem_open("forks", O_CREAT, S_IRWXU, i);
-	sema->lock_print = sem_open("lock_print", O_CREAT, S_IRWXU, 1);
+	sema->forks = sem_open("forks", O_CREAT, 0666, i);
+	if (sema->forks == SEM_FAILED)
+		error(ph, sema, NULL, 1);
+	sema->lock_print = sem_open("lock_print", O_CREAT, 0666, 1);
+	if (sema->forks == SEM_FAILED)
+		error(ph, sema, NULL, 1);
 }
 
 void	ft_fill(t_inf *ph, char **av, int ac)
@@ -42,35 +46,28 @@ void	ft_fill(t_inf *ph, char **av, int ac)
 		ph[i].t_die = ft_atoi(av[2]);
 		i++;
 	}
-	ft_init_sema(sema, ph->nph);
+	ft_init_sema(sema, ph->nph, ph);
 }
 
 void	ft_check_child(t_inf *ph, int *frk, int status)
 {
 	int	i;
-	int	k;
 
-	k = 0;
-	while (1)
+	i = 0;
+	while (i < ph[0].nph)
 	{
 		waitpid(-1, &status, 0);
-		if (WIFEXITED(status))
+		if (WEXITSTATUS(status) == EXIT_FAILURE)
 		{
-			if (WEXITSTATUS(status) == EXIT_SUCCESS)
-				k++;
-			else if (WEXITSTATUS(status) == EXIT_FAILURE)
+			i = 0;
+			while (i < ph[0].nph)
 			{
-				i = 0;
-				while (i < ph[0].nph)
-				{
-					kill(frk[i], SIGKILL);
-					i++;
-				}
-				break ;
+				kill(frk[i], SIGKILL);
+				i++;
 			}
+			return ;
 		}
-		if (k == ph[0].nph)
-			break ;
+		i++;
 	}
 }
 
@@ -93,10 +90,10 @@ void	ft_creat_philo(int ac, char **av)
 		ph[i].l_meal = ph[0].start;
 		frk[i] = fork();
 		if (frk[i] == -1)
-			error();
+			error(ph, ph[0].sem, frk, 1);
 		if (frk[i] == 0)
 			ft_child(&ph[i]);
-		usleep(10);
+		usleep(1);
 		i++;
 	}
 	ft_check_child(ph, frk, status);
@@ -109,15 +106,16 @@ int	main(int ac, char **av)
 	int	j;
 
 	if (ac != 5 && ac != 6)
-		error();
+		error(NULL, NULL, NULL, 0);
 	i = 1;
 	while (av[i])
 	{
 		j = 0;
 		while (av[i][j])
 		{
-			if (av[i][j] < 48 || av[i][j] > 57)
-				error();
+			if (((av[i][j] < 48 || av[i][j] > 57) && av[i][j] != '+')
+				|| ft_atoi(av[i]) < 0)
+				error(NULL, NULL, NULL, 0);
 			j++;
 		}
 		i++;

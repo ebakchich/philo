@@ -6,9 +6,11 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:45:38 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/16 18:38:15 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/02/01 22:11:41 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philo.h"
 
 int	ft_error(int ac, char **av)
 {
@@ -23,7 +25,8 @@ int	ft_error(int ac, char **av)
 		j = 0;
 		while (av[i][j])
 		{
-			if (av[i][j] < 48 || av[i][j] > 57)
+			if (((av[i][j] < 48 || av[i][j] > 57) && av[i][j] != '+')
+				|| ft_atoi(av[i]) < 0)
 				return (1);
 			j++;
 		}

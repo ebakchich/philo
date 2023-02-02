@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 21:20:32 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/25 06:53:38 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/02/02 01:43:59 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct t_infop
 
 int			ft_error(int ac, char **av);
 int			ft_atoi(const char *str);
-void		error(void);
+void		error(t_inf *ph, t_sem *sema, int *frk, int i);
 void		ft_child(t_inf *ph);
 long int	ft_get_time(void);
 size_t		ft_strlen(const char *s);

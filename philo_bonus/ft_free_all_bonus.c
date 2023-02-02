@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 05:19:38 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/25 07:42:37 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/02/02 01:52:31 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_free_all(t_inf *ph, t_sem *sema, int *frk)
 	sem_unlink("forks");
 	sem_unlink("lock_print");
 	free(sema);
-	free(frk);
+	if (frk != NULL)
+		free(frk);
 	free(ph);
 }

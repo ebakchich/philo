@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 05:38:23 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/23 05:39:05 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/02/01 20:36:35 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	ft_atoi(const char *str)
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
 		n = n * 10 + str[i] - 48;
-		if (n > 9223372036854775807 && sign == 1)
+		if (n > 2147483647 && sign == 1)
 			return (-1);
-		else if (n > 9223372036854775807 && sign == -1)
-			return (0);
+		else if (n > 2147483648 && sign == -1)
+			return (-1);
 		i++;
 	}
 	return (sign * n);

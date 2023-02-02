@@ -6,7 +6,7 @@
 /*   By: ebakchic <ebakchic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:49:28 by ebakchic          #+#    #+#             */
-/*   Updated: 2023/01/26 21:03:49 by ebakchic         ###   ########.fr       */
+/*   Updated: 2023/02/02 02:27:20 by ebakchic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,23 @@ int	ft_check_die(t_inf *ph)
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	while (i < ph[i].nph)
+	while (1)
 	{
-		if (ph[i].ac == 6 && ph[i].m_eat == 0)
-			j++;
-		if (j == ph[i].nph)
-			return (1);
-		if (ft_get_time() - ph[i].l_meal >= ph[i].t_die)
+		i = 0;
+		j = 0;
+		while (i < ph[i].nph)
 		{
-			ft_print_msg(ph, "died");
-			return (1);
+			if (ph[i].ac == 6 && ph[i].m_eat == 0)
+				j++;
+			if (j == ph[i].nph)
+				return (0);
+			if (ft_get_time() - ph[i].l_meal >= ph[i].t_die)
+			{
+				ft_print_msg(ph, "died");
+				return (0);
+			}
+			i++;
 		}
-		i++;
 	}
 	return (0);
 }
@@ -77,15 +80,14 @@ void	ft_creat_philo(int ac, char **av)
 		ph[i].start = ph[0].start;
 		ph[i].l_meal = ph[0].start;
 		if (pthread_create(&pt[i], NULL, &ft_routing, &ph[i]) != 0)
-			return ;
+		{
+			printf("Error\n");
+			break ;
+		}
 		usleep(50);
 		i++;
 	}
-	while (1)
-	{
-		if (ft_check_die(ph))
-			break ;
-	}
+	ft_check_die(ph);
 	ft_free_all(ph, pt);
 }
 
